@@ -1,21 +1,14 @@
 //
-//  ViewController.swift
+//  QuizBrain.swift
 //  Quizzler-iOS13
 //
-//  Created by Angela Yu on 12/07/2019.
-//  Copyright © 2019 The App Brewery. All rights reserved.
+//  Created by Sandun Liyanage on 11/14/20.
+//  Copyright © 2020 The App Brewery. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class ViewController: UIViewController {
-    
-    @IBOutlet weak var questionLabel: UILabel!
-    @IBOutlet weak var progressBar: UIProgressView!
-    
-    @IBOutlet weak var trueButton: UIButton!
-    @IBOutlet weak var falseButton: UIButton!
-    
+struct QuizBrain {
     let quiz = [
         Question(q: "A slug's blood is green.", a: "True"),
         Question(q: "Approximately one quarter of human bones are in the feet.", a: "True"),
@@ -31,41 +24,37 @@ class ViewController: UIViewController {
         Question(q: "Chocolate affects a dog's heart and nervous system; a few ounces are enough to kill a small dog.", a: "True")
     ]
     
-    var questionNumber:Int = 0
+    var questionNumber: Int = 0
+    var score: Int = 0
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-        updateUI()
+    mutating func checkAnswer(_ userAnswer: String) -> Bool {
+        if quiz[questionNumber].answer == userAnswer {
+            score += 1
+            return true
+        }else{
+            return false
+        }
     }
     
-    @IBAction func answerButtonClicked(_ sender: UIButton) {
-        
-        let userAnswer = sender.currentTitle
-        let actualAnswer = quiz[questionNumber].answer
-        
-        if userAnswer == actualAnswer {
-            print("Correct")
-        } else {
-            print("Incorrect")
-        }
-        
-        
+    func getScore () -> Int {
+        return score
+    }
+    
+    func getQuestionText() -> String {
+        return quiz[questionNumber].question
+    }
+    
+    func getProgress() -> Float {
+        Float(questionNumber+1)/Float(quiz.count)
+    }
+    
+    mutating func nextQuestion() {
         if (questionNumber < quiz.count-1) {
             questionNumber += 1
-            updateUI()
+            
         } else {
             questionNumber = 0
-            updateUI()
+            score = 0
         }
-        
     }
-    
-    func updateUI() {
-        questionLabel.text = quiz[questionNumber].question
-        
-    }
-    
 }
-
