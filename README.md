@@ -41,3 +41,5 @@
         Question(q: "What type of animal was Harambe?", a: ["Panda", "Gorilla", "Crocodile"], correctAnswer: "Gorilla"),
         Question(q: "Where is Tasmania located?", a: ["Indonesia", "Australia", "Scotland"], correctAnswer: "Australia")
 ```
+
+> Created as a a companion project to The App Brewery's Complete App Development Bootcamp 
